@@ -64,7 +64,11 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+        if self.storage[index]:
+            self.storage[index] = None
+        else:
+            print('Key not found!')
 
 
     def retrieve(self, key):
