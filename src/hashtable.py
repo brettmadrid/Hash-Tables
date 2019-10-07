@@ -52,8 +52,26 @@ class HashTable:
 
         Fill this in.
         '''
-        
+        index = self._hash_mod(key)
 
+        if self.storage[index] == None:
+            self.storage[index] = LinkedPair(key, value)
+            self.count += 1
+        else:
+            temp = self.storage[index]
+            if temp.key == key:
+                self.storage[index].value = value
+                return None
+            else:
+                while temp.next != None:
+                    temp = temp.next
+                    if temp.key == key:
+                        temp.value = value
+                        return None
+            temp.next = LinkedPair(key, value)
+            self.count += 1
+
+        return None
 
 
     def remove(self, key):
@@ -71,7 +89,7 @@ class HashTable:
             print(f'Warning! {key} is not in the hash table')
             return None
         else:
-            temp = self.storage[i]
+            temp = self.storage[index]
 
             if temp.next != None:
                 if temp.next.key == key:
@@ -81,7 +99,7 @@ class HashTable:
                 temp = temp.next
             else:
                 if temp.key == key:
-                    self.storage[i] = None
+                    self.storage[index] = None
                     return None
 
             return None
@@ -107,14 +125,14 @@ class HashTable:
         return None
 
 
-    def resize(self, hash_table):
+    def resize(self):
         '''
         Doubles the capacity of the hash table and
         rehash all key/value pairs.
 
         Fill this in.
         '''
-        new_hash_table = HashTable(hash_table.capacity*2)
+        new_hash_table = HashTable(self.capacity*2)
         return new_hash_table
 
 
