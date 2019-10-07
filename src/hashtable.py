@@ -78,14 +78,15 @@ class HashTable:
         pass
 
 
-    def resize(self):
+    def resize(hash_table):
         '''
         Doubles the capacity of the hash table and
         rehash all key/value pairs.
 
         Fill this in.
         '''
-        
+        new_hash_table = HashTable(hash_table.capacity*2)
+        return new_hash_table
 
 
 
