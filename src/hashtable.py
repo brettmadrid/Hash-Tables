@@ -52,7 +52,7 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        
 
 
 
@@ -65,10 +65,26 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
-        if self.storage[index]:
-            self.storage[index] = None
+        current = self.storage[index]
+
+        if current is None:
+            print(f'Warning! {key} is not in the hash table')
+            return None
         else:
-            print('Key not found!')
+            temp = self.storage[i]
+
+            if temp.next != None:
+                if temp.next.key == key:
+                    temp.next = temp.next.next
+                    self.count -= 1
+                    break
+                temp = temp.next
+            else:
+                if temp.key == key:
+                    self.storage[i] = None
+                    return None
+
+            return None
 
 
     def retrieve(self, key):
@@ -80,7 +96,15 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
-        return self.storage[index]
+        if self.storage[index] != None: # if the value is found
+            temp = self.storage[index]  # get the proper index
+
+            while temp != None:
+                if temp.key == key:
+                    return temp.value
+                temp = temp.next # go to next item in linked list
+        
+        return None
 
 
     def resize(self, hash_table):
