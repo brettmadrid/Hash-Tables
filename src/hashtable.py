@@ -75,10 +75,11 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+        return self.storage[index]
 
 
-    def resize(hash_table):
+    def resize(self, hash_table):
         '''
         Doubles the capacity of the hash table and
         rehash all key/value pairs.
