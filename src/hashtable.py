@@ -66,20 +66,20 @@ class HashTable:
         # now create a new linkedPair node to hold the key, value data
         new_node = LinkedPair(key, value)
 
-        # if that index location is available, add the key and value as a LinkedPair object
-        if self.storage[index] == None:
-            # instantiates a LinkedPair object and stores in the storage array
+        # if that index location is available,
+        if self.storage[index] is None:
+            # store the new_node at the indexed position in storage
             self.storage[index] = new_node
             self.count += 1
         else:  # if that index location is already taken
-            # store what is already there into a temp variable
+            # store the linked pair node already there into a temp variable
             temp = self.storage[index]
-            if temp.key == key:  # if the new key is the same as the existing key
-                # then overwrite with the new value
+            if temp.key == key:  # if the new key is the same
+                # then simply update the value
                 self.storage[index].value = value
                 return None
-            else:  # if the new key is not the same as the key already there
-                while temp.next != None:  # loop to the end of the linked list
+            else:  # if the new key is not the same as the key already there -> collision
+                while temp.next is not None:  # loop thru link nodes until key is found
                     temp = temp.next
                     if temp.key == key:  # checking each item in the linked list to see if the key is already stored
                         temp.value = value  # if the key is already stored, update with the new value
@@ -92,10 +92,7 @@ class HashTable:
     def remove(self, key):
         '''
         Remove the value stored with the given key.
-
-        Print a warning if the key is not found.
-
-        Fill this in.
+        Prints a warning if the key is not found.
         '''
         index = self._hash_mod(key)
         current = self.storage[index]  # retrieve what is at that index
