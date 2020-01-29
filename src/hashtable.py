@@ -94,27 +94,53 @@ class HashTable:
         Remove the value stored with the given key.
         Prints a warning if the key is not found.
         '''
+
+        # first get the index of the key to be removed
         index = self._hash_mod(key)
-        current = self.storage[index]  # retrieve what is at that index
+        # get node at that index
+        current = self.storage[index]
+        prev = None
+
+        # loop through each node looking for a key match
+        while current is not None and current.key != key:
+            # keep track of the previous node as we loop thru
+            prev = current
+            # move on to the next node
+            current = current.next
+
+        # if found, current now holds the value of the node with the key match
 
         if current is None:
-            print(f'Warning! {key} is not in the hash table')
-            return None
+            print(f'key: {key} does not exist in storage!')
         else:
-            # if a value is there, store it in a temp variable
-            temp = self.storage[index]
-
-            if temp.next != None:
-                if temp.next.key == key:  # check for a match
-                    temp.next = temp.next.next  # reassign
-                    self.count -= 1
-                temp = temp.next
+            if prev is None:  # if node with a match is at the head of the LL
+                # assign new head to be next element
+                self.storage[index] = current.next
             else:
-                if temp.key == key:
-                    self.storage[index] = None
-                    return None
+                prev.next = current.next
+            print(f'key: {key} was successfully removed!')
 
-            return None
+        # First check if that index contains any data
+        # if temp is None:
+        #     print(f'Warning! {key} is not in the hash table')
+        #     return None
+        # else: # there is data at that index
+
+        #     # check if that node's key matches
+        #     if temp.key == key:
+
+        #     # if node to be removed is linked to another node
+        #     if temp.next is not None:
+        #         if temp.next.key == key:  # check for a match
+        #             temp.next = temp.next.next  # reassign pointers
+        #             self.count -= 1
+        #         temp = temp.next
+        #     else:
+        #         if temp.key == key:
+        #             self.storage[index] = None
+        #             return None
+
+        #     return None
 
     def retrieve(self, key):
         '''
