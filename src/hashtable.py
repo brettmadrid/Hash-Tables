@@ -178,24 +178,3 @@ class HashTable:
             while curr_pair is not None:
                 self.count += 1
                 curr_pair = curr_pair.next
-
-
-if __name__ == "__main__":
-    ht = HashTable(8)
-
-    ht.insert("key-0", "val-0")
-    ht.insert("key-1", "val-1")
-    ht.insert("key-2", "val-2")
-    ht.insert("key-3", "val-3")
-    ht.insert("key-4", "val-4")
-    ht.insert("key-5", "val-5")
-    ht.insert("key-6", "val-6")
-    ht.insert("key-7", "val-7")
-    ht.insert("key-8", "val-8")
-    ht.insert("key-9", "val-9")
-
-    print(ht.count)
-    print(len(ht.storage))
-    print(ht.capacity)
-    # ht.resize()
-    # print(len(ht.storage))
