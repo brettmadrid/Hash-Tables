@@ -118,29 +118,8 @@ class HashTable:
                 self.storage[index] = current.next
             else:
                 prev.next = current.next
+
             print(f'key: {key} was successfully removed!')
-
-        # First check if that index contains any data
-        # if temp is None:
-        #     print(f'Warning! {key} is not in the hash table')
-        #     return None
-        # else: # there is data at that index
-
-        #     # check if that node's key matches
-        #     if temp.key == key:
-
-        #     # if node to be removed is linked to another node
-        #     if temp.next is not None:
-        #         if temp.next.key == key:  # check for a match
-        #             temp.next = temp.next.next  # reassign pointers
-        #             self.count -= 1
-        #         temp = temp.next
-        #     else:
-        #         if temp.key == key:
-        #             self.storage[index] = None
-        #             return None
-
-        #     return None
 
     def retrieve(self, key):
         '''
@@ -151,11 +130,11 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
-        if self.storage[index] != None:  # if the value is found
+        if self.storage[index] is not None:  # if the value is found
             # get the linked list or value stored at that index into a variable
             temp = self.storage[index]
 
-            while temp != None:  # loop through the linked list
+            while temp is not None:  # loop through the linked list
                 if temp.key == key:  # compare each key
                     return temp.value  # if found, return the value
                 temp = temp.next  # go to next item in linked list
