@@ -67,8 +67,8 @@ class HashTable:
         Fill this in.
         '''
 
-        if self.capacity == self.count:
-            self.resize()
+        # if self.capacity == self.count:
+        #     self.resize()
 
         # first hash the key to get an index value
         index = self._hash_mod(key)
