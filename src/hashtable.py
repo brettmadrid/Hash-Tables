@@ -57,7 +57,7 @@ class HashTable:
         Fill this in.
         '''
 
-        if self.capacity == self.count - 1:
+        if self.capacity == self.count:
             self.resize()
 
         # first hash the key to get an index value
@@ -148,37 +148,44 @@ class HashTable:
 
         Fill this in.
         '''
+        prev_storage = self.storage
         self.capacity = self.capacity * 2
-        new_storage = [None] * self.capacity
+        self.storage = [None] * self.capacity
 
-        for i in range(self.count):
-            new_storage[i] = self.storage[i]
+        current = None
+
+        for item in prev_storage:
+            current = item
+            while current is not None:
+                self.insert(current.key, current.value)
+                current = current.next
+
+        # now recalculate the proper count
+        self.count = 0
+
+        for pair in self.storage:
+            curr_pair = pair
+            while curr_pair is not None:
+                self.count += 1
+                curr_pair = curr_pair.next
 
 
 if __name__ == "__main__":
-    ht = HashTable(2)
+    ht = HashTable(8)
 
-    ht.insert("line_1", "Tiny hash table")
-    ht.insert("line_2", "Filled beyond capacity")
-    ht.insert("line_3", "Linked list saves the day!")
+    ht.insert("key-0", "val-0")
+    ht.insert("key-1", "val-1")
+    ht.insert("key-2", "val-2")
+    ht.insert("key-3", "val-3")
+    ht.insert("key-4", "val-4")
+    ht.insert("key-5", "val-5")
+    ht.insert("key-6", "val-6")
+    ht.insert("key-7", "val-7")
+    ht.insert("key-8", "val-8")
+    ht.insert("key-9", "val-9")
 
-    print("")
-
-    # Test storing beyond capacity
-    print(ht.retrieve("line_1"))
-    print(ht.retrieve("line_2"))
-    print(ht.retrieve("line_3"))
-
-    # Test resizing
-    old_capacity = len(ht.storage)
-    ht.resize()
-    new_capacity = len(ht.storage)
-
-    print(f"\nResized from {old_capacity} to {new_capacity}.\n")
-
-    # Test if data intact after resizing
-    print(ht.retrieve("line_1"))
-    print(ht.retrieve("line_2"))
-    print(ht.retrieve("line_3"))
-
-    print("")
+    print(ht.count)
+    print(len(ht.storage))
+    print(ht.capacity)
+    # ht.resize()
+    # print(len(ht.storage))
